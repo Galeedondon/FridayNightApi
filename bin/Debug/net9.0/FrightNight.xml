@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FrightNight</name>
+    </assembly>
+    <members>
+        <member name="M:FrightNight.Controllers.AuthController.Login(FrightNight.Models.AuthRequest)">
+            <summary>
+            登入
+            </summary>
+            <remarks></remarks>
+            <param name="request">登入資訊</param>
+            <returns>Token</returns>       
+        </member>
+        <member name="M:FrightNight.Controllers.AuthController.Register(FrightNight.Models.AuthRequest)">
+            <summary>
+            註冊
+            </summary>
+            <remarks></remarks>
+            <param name="request">註冊資訊</param>
+            <returns>AuthRequest</returns> 
+        </member>
+        <member name="M:FrightNight.Controllers.AuthController.UpdateAccount(FrightNight.Models.AuthChangeRequest)">
+            <summary>
+            修改帳號
+            </summary>
+            <remarks></remarks>
+            <param name="request">修改帳號</param>
+            <returns>AuthRequest</returns> 
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.CommentController.Create(FrightNight.Models.Comments)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.CommentController.Update(FrightNight.Models.Comments)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.CommentController.Get(System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.CommentController.Delete(System.Int32,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.Create(FrightNight.Models.Memorys)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.Get(System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.GetByDate(System.DateTime)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.GetByMonth(System.DateTime)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.Delete(System.Int32,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.CreatePicture(Microsoft.AspNetCore.Http.IFormFile)" -->
+        <!-- Badly formed XML comment ignored for member "M:FrightNight.Controllers.MemoryController.GetPicture(System.String)" -->
+    </members>
+</doc>

@@ -1,0 +1,4 @@
+dotnet new webapi -n YourApiName
+cd YourApiName
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package Swashbuckle.AspNetCore

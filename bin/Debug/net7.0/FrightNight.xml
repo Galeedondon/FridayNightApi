@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FrightNight</name>
+    </assembly>
+    <members>
+        <member name="M:FrightNight.Controllers.TodoController.GetString">
+            <summary>
+            只是測試。
+            </summary>
+            <param name="id">卡片ID</param> 
+            <returns></returns> 
+        </member>
+        <member name="M:FrightNight.Controllers.TodoController.GetAll">
+            <summary>
+            這是待辦事項項目的模型。
+            </summary>
+            <param name="id">卡片ID</param> 
+            <returns></returns> 
+        </member>
+        <member name="M:FrightNight.Controllers.TodoController.GetById(System.Int64)">
+            <summary>
+            這是待辦事項項目的模型。
+            </summary>
+            <param name="id">卡片ID</param> 
+            <returns></returns> 
+        </member>
+    </members>
+</doc>

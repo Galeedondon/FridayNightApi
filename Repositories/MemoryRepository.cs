@@ -40,7 +40,7 @@ namespace FrightNight.Repositories
         public async Task<List<Memorys>> GetByMonth(DateTime date)
         {
             DateTime requestDate = new DateTime(date.Year, date.Month, 1, 0, 0, 0, DateTimeKind.Utc);
-            DateTime requestMonthEnd = requestDate.AddMonths(1).AddDays(-1); // 當月的最後一天
+            DateTime requestMonthEnd = requestDate.AddMonths(1).AddSeconds(-1); // 當月的最後一天
 
             var result = await _context.Memorys
                 .Where(m => m.DeleteAt == null && m.DeleteDate == null && m.MemoryDate >= requestDate && m.MemoryDate <= requestMonthEnd)

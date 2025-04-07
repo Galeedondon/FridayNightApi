@@ -14,10 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 // 設定 CORS 策略
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:5082")
-                          .AllowAnyMethod()
-                          .AllowAnyHeader());
+    options.AddPolicy("AllowNgrok",
+        policy =>
+        {
+            policy.AllowAnyOrigin()   // 或者 .WithOrigins("https://dafb-36-227-128-165.ngrok-free.app")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+    
 });
 
 // Add services to the container.
@@ -94,7 +98,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var app = builder.Build();
-
+app.UseCors("AllowNgrok");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -107,7 +111,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseSession(); 
-app.UseCors("AllowSpecificOrigin"); // Apply CORS policy
+app.UseCors("AllowNgrok"); // Apply CORS policy
 // 使用 JWT 認證
 app.UseAuthentication(); // 確保在 UseAuthorization 之前調用
 app.UseAuthorization();

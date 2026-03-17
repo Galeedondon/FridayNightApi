@@ -1,12 +1,11 @@
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY *.csproj ./
-COPY *.sln ./
+COPY FrightNight.csproj ./
+COPY FrightNight.sln ./
 RUN dotnet restore
 COPY . .
-WORKDIR FridayNightApi
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish FrightNight.csproj -c Release -o /app/publish --no-restore
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0

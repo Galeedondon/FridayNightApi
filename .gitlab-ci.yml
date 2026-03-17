@@ -1,0 +1,80 @@
+stages:
+  - build
+  - test
+  - docker_build
+  - deploy
+
+variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "1"
+  IMAGE_TAG: "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  LATEST_TAG: "$CI_REGISTRY_IMAGE:latest"
+
+# 1) Build: restore, build, publish
+build:
+  stage: build
+  image: mcr.microsoft.com/dotnet/sdk:9.0
+  script:
+    - dotnet restore
+    - dotnet build -c Release --no-restore
+    - dotnet publish -c Release -o publish
+  artifacts:
+    paths:
+      - publish/
+    expire_in: 1 hour
+
+# 2) Test: run unit tests (uses build artifacts)
+test:
+  stage: test
+  image: mcr.microsoft.com/dotnet/sdk:9.0
+  dependencies:
+    - build
+  script:
+    - dotnet test --no-build --verbosity normal
+
+# 3) Docker build and push to registry
+# Requires runner that supports docker:dind (privileged) or alternate build approach
+docker_build_and_push:
+  stage: docker_build
+  image: docker:24.0
+  services:
+    - name: docker:24.0-dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - echo "Logging in to registry $CI_REGISTRY"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  script:
+    - docker build -t "$IMAGE_TAG" .
+    - docker tag "$IMAGE_TAG" "$LATEST_TAG"
+    - docker push "$IMAGE_TAG"
+    - docker push "$LATEST_TAG"
+  only:
+    - main
+  dependencies:
+    - build
+  artifacts:
+    expire_in: 1 hour
+    paths: []
+
+# 4) Deploy: call Render Deploy Hook to trigger deployment
+deploy_to_render:
+  stage: deploy
+  image: curlimages/curl:8.3.0
+  script:
+    - echo "Triggering Render deploy via hook"
+    - |
+      if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+        echo "RENDER_DEPLOY_HOOK_URL is not set. Abort."
+        exit 1
+      fi
+    - |
+      curl -X POST "$RENDER_DEPLOY_HOOK_URL" \
+        -H "Content-Type: application/json" \
+        -d "{\"image\": \"$IMAGE_TAG\"}"
+  only:
+    - main
+  dependencies:
+    - docker_build_and_push

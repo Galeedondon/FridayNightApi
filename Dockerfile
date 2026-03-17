@@ -1,8 +1,8 @@
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY *.sln .
-COPY */*.csproj ./
+COPY *.csproj ./
+COPY *.sln ./
 RUN dotnet restore
 COPY . .
 WORKDIR FridayNightApi

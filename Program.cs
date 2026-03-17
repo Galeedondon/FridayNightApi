@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod()
                   .AllowAnyHeader();
         });
-    
+
 });
 
 // Add services to the container.
@@ -93,27 +93,26 @@ builder.Services.AddSwaggerGen(options =>
     // 讀取 XML 檔案產生 API 說明
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    
+
     options.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
-app.UseCors("AllowNgrok");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// if (app.Environment.IsDevelopment())
+// {
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrightNightAPI V1");
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "FrightNightAPI V1");
+});
+// }
 
 if (!app.Environment.IsProduction()) // 或檢查是否有 "RENDER" 環境變數
 {
     app.UseHttpsRedirection();
 }
-app.UseSession(); 
+// app.UseSession();  測試（Session 在無狀態容器可能沒影響，但先排除）。
 app.UseCors("AllowNgrok"); // Apply CORS policy
 // 使用 JWT 認證
 app.UseAuthentication(); // 確保在 UseAuthorization 之前調用

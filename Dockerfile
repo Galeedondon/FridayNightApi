@@ -5,7 +5,8 @@ COPY FrightNight.csproj ./
 COPY FrightNight.sln ./
 RUN dotnet restore
 COPY . .
-RUN dotnet publish FrightNight.csproj -c Release -o /app/publish --no-restore
+RUN dotnet restore --verbosity detailed
+RUN dotnet publish FrightNight.csproj -c Release -o /app/publish --verbosity detailed
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0

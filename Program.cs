@@ -109,7 +109,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsProduction()) // 或檢查是否有 "RENDER" 環境變數
+{
+    app.UseHttpsRedirection();
+}
 app.UseSession(); 
 app.UseCors("AllowNgrok"); // Apply CORS policy
 // 使用 JWT 認證

@@ -5,7 +5,7 @@ COPY *.sln .
 COPY */*.csproj ./
 RUN dotnet restore
 COPY . .
-WORKDIR /src/FridayNightApi
+WORKDIR FridayNightApi
 RUN dotnet publish -c Release -o /app/publish
 
 # Runtime stage

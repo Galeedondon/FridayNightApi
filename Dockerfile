@@ -15,4 +15,4 @@ COPY --from=build /app/publish .
 EXPOSE 10000
 ENV ASPNETCORE_URLS=http://0.0.0.0:10000
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENTRYPOINT ["dotnet", "FridayNight.dll"]
+ENTRYPOINT ["dotnet", "FrightNight.dll"]

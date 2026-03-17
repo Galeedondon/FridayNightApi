@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FrightNight")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+547f2f8609a80525cfc1a2d0d00b5292f9ed8718")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dede7e8ec8028bb7474cce0e550be1fafaa2ff1b")]
 [assembly: System.Reflection.AssemblyProductAttribute("FrightNight")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FrightNight")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
